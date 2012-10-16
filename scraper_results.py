@@ -8,6 +8,10 @@ http://electionresults.sos.state.mn.us/ENR/Select/Download/1
 Describing file columns:
 
 http://electionresults.sos.state.mn.us/ENR/Select/DownloadFileFormats/1
+
+
+
+This file gets the results for all elections.
 """
 import re
 import dumptruck
@@ -73,7 +77,7 @@ for u in urls:
       'name_id': name_id
     }
     
-    scraperwiki.sqlite.save(unique_keys=['id'], data=data)
+    scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_general')
     
     count = count + 1
 
