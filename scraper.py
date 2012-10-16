@@ -13,7 +13,6 @@ import re
 import dumptruck
 import scraperwiki
 import lxml.html
-import dateutil.parser
 import csv
 import sqlite3
 
