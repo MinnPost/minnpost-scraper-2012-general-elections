@@ -27,7 +27,7 @@ urls = {
 }
 
 for u in urls:
-  print 'Scraping %s...' % urls[u]
+  print '[%s] Scraping URL: %s...' % (u, urls[u])
   
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
@@ -97,4 +97,4 @@ for u in urls:
     count = count + 1
 
   # Output total for each category
-  print 'Total for %s: %s' % (u, count)
+  print '[%s] Total rows: %s' % (u, count)
