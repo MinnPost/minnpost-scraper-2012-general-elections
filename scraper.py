@@ -9,12 +9,13 @@ Describing file columns:
 
 http://electionresults.sos.state.mn.us/ENR/Select/DownloadFileFormats/1
 """
+import re
+import dumptruck
 import scraperwiki
 import lxml.html
 import dateutil.parser
 import csv
-import re
-
+import sqlite3
 
 urls = {
   'presidential': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=22',
@@ -32,6 +33,8 @@ urls = {
 }
 
 for u in urls:
+  print 'Scraping %s...' % urls[u]
+  
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
   count = 0  
@@ -45,9 +48,12 @@ for u in urls:
     # that is what MN SoS uses
     if not row[1]:
       row[1] = '88'
+      
+    # Create id
+    identifier = 'id-' + row[1] + '-' + row[3] + '-' + row[6] + '-' + office_name_id + '-' + name_id
 
     data = {
-      'id': 'id-' + row[1] + '-' + row[3] + '-' + row[6] + '-' + office_name_id + '-' + name_id,
+      'id': identifier,
       'office_type': u,
       'state': row[0],
       'county_id': row[1],
@@ -67,7 +73,9 @@ for u in urls:
       'total_votes_for_office': row[15],
       'name_id': name_id
     }
+    
     scraperwiki.sqlite.save(unique_keys=['id'], data=data)
+    
     count = count + 1
 
   # Output total for each category

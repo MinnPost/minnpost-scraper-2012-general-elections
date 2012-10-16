@@ -2,6 +2,13 @@
 Empties database.  Use with caution.
 """
 import scraperwiki
+import sqlite3
+import dumptruck
 
-print 'Emptying database (all tables) ...'
-scraperwiki.sqlite.execute('DELETE FROM swdata;', verbose=1)
+dt = dumptruck.DumpTruck(dbname='scraperwiki.sqlite')
+
+print 'Dropping all tables ...'
+tables = dt.tables()
+for t in tables:
+  print 'Dropping %s ...' % t
+  dt.drop(t)
