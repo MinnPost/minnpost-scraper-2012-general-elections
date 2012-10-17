@@ -14,10 +14,10 @@ http://electionresults.sos.state.mn.us/ENR/Select/DownloadFileFormats/1
 This file gets meta data.
 """
 import re
-import dumptruck
 import scraperwiki
-import lxml.html
 import csv
+import datetime
+import calendar
 
 urls = {
   'meta_questions': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=11',
@@ -29,7 +29,9 @@ for u in urls:
   
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='"')
-  count = 0  
+  count = 0
+  # Make a UTC timestamp
+  timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
 
   for row in candidates:
     if u == 'meta_questions':
@@ -48,7 +50,8 @@ for u in urls:
         'school_district': row[3],
         'question_number': row[4],
         'question_title': row[5],
-        'question_body': row[6]
+        'question_body': row[6],
+        'updated': int(timestamp)
       }
     elif u == 'meta_parties':
       # Party Abbreviation
@@ -58,7 +61,8 @@ for u in urls:
         'id': row[2],
         'party_code': row[0],
         'party_name': row[1],
-        'party_id': row[2]
+        'party_id': row[2],
+        'updated': int(timestamp)
       }
     
     scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = u)

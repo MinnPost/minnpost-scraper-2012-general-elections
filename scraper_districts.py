@@ -14,10 +14,10 @@ http://electionresults.sos.state.mn.us/ENR/Select/DownloadFileFormats/1
 This file gets districts data.
 """
 import re
-import dumptruck
 import scraperwiki
-import lxml.html
 import csv
+import datetime
+import calendar
 
 urls = {
   'district_counties': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=6',
@@ -26,12 +26,15 @@ urls = {
   'district_school': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=18',
 }
 
+
 for u in urls:
   print '[%s] Scraping URL: %s...' % (u, urls[u])
   
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
-  count = 0  
+  count = 0
+  # Make a UTC timestamp
+  timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
 
   for row in candidates:
     if u == 'district_counties':
@@ -42,7 +45,8 @@ for u in urls:
         'id': row[0],
         'county_id': row[0],
         'county_name': row[1],
-        'precincts': int(row[2])
+        'precincts': int(row[2]),
+        'updated': int(timestamp)
       }
     elif u == 'district_precincts':
       # County ID
@@ -65,8 +69,9 @@ for u in urls:
         'county_commissioner_district': row[5],
         'judicial_district': row[6],
         'soil_water_district': row[7],
-        'mcd_fips_code': row[8]
-        #'school_district': row[9]
+        'mcd_fips_code': row[8],
+        #'school_district': row[9],
+        'updated': int(timestamp)
       }
     elif u == 'district_municipal':
       # County ID
@@ -78,7 +83,8 @@ for u in urls:
         'county_id': row[0],
         'county_name': row[1],
         'mcd_fips_code': row[2],
-        'mcd_name': row[3]
+        'mcd_name': row[3],
+        'updated': int(timestamp)
       }
     elif u == 'district_school':
       # School District Number
@@ -90,7 +96,8 @@ for u in urls:
         'district_number': row[0],
         'district_name': row[1],
         'county_id': row[2],
-        'county_name': row[3]
+        'county_name': row[3],
+        'updated': int(timestamp)
       }
     
     scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = u)

@@ -14,11 +14,10 @@ http://electionresults.sos.state.mn.us/ENR/Select/DownloadFileFormats/1
 This file gets the results for all elections.
 """
 import re
-import dumptruck
 import scraperwiki
-import lxml.html
 import csv
-import sqlite3
+import datetime
+import calendar
 
 urls = {
   'presidential': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=22',
@@ -40,7 +39,9 @@ for u in urls:
   
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
-  count = 0  
+  count = 0
+  # Make a UTC timestamp
+  timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
 
   for row in candidates:
     # Make name ID
@@ -74,7 +75,8 @@ for u in urls:
       'votes_candidate': int(row[13]),
       'percentage': float(row[14]),
       'total_votes_for_office': int(row[15]),
-      'name_id': name_id
+      'name_id': name_id,
+      'updated': int(timestamp)
     }
     
     scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_general')
