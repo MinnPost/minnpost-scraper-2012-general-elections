@@ -69,16 +69,15 @@ for u in urls:
       'suffix': row[8],
       'incumbent_code': row[9],
       'party_id': row[10],
-      'precincts_reporting': row[11],
-      'total_effected_precincts': row[12],
-      'votes_candidate': row[13],
-      'percentage': row[14],
-      'total_votes_for_office': row[15],
+      'precincts_reporting': int(row[11]),
+      'total_effected_precincts': int(row[12]),
+      'votes_candidate': int(row[13]),
+      'percentage': float(row[14]),
+      'total_votes_for_office': int(row[15]),
       'name_id': name_id
     }
     
     scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_general')
-    
     count = count + 1
 
   # Output total for each category

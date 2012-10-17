@@ -42,7 +42,7 @@ for u in urls:
         'id': row[0],
         'county_id': row[0],
         'county_name': row[1],
-        'precincts': row[2]
+        'precincts': int(row[2])
       }
     elif u == 'district_precincts':
       # County ID
