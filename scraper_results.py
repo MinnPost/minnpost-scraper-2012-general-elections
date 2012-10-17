@@ -19,6 +19,8 @@ import csv
 import datetime
 import calendar
 
+print '[scraper] Scraping general Results data tables.'
+
 urls = {
   'presidential': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=22',
   'us_senate': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=23',
@@ -35,8 +37,6 @@ urls = {
 }
 
 for u in urls:
-  print '[%s] Scraping URL: %s...' % (u, urls[u])
-  
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
   count = 0

@@ -19,14 +19,14 @@ import csv
 import datetime
 import calendar
 
+print '[scraper] Scraping Meta data tables.'
+
 urls = {
   'meta_questions': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=11',
   'meta_parties': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=5'
 }
 
 for u in urls:
-  print '[%s] Scraping URL: %s...' % (u, urls[u])
-  
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='"')
   count = 0
