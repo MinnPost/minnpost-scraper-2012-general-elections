@@ -5,6 +5,8 @@
 .sqlite_history
 .lesshst
 scraperwiki.sqlite
+libraries
+logs
 
 ## EDITORS
 .viminfo
