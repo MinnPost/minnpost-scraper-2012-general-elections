@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Scraper for the 2012 general election in Minnesota.  Main
 results page can be found here:
@@ -18,8 +19,11 @@ import scraperwiki
 import csv
 import datetime
 import calendar
+import logger
 
-print '[scraper] Scraping District data tables.'
+# Set up logger
+log = logger.ScraperLogger('scraper_districts').logger
+log.info('[scraper] Scraping District data tables.')
 
 urls = {
   'district_counties': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=6',
@@ -104,4 +108,4 @@ for u in urls:
     count = count + 1
 
   # Output total for each category
-  print '[%s] Total rows: %s' % (u, count)
+  log.info('[%s] Total rows: %s' % (u, count))

@@ -19,25 +19,11 @@ import scraperwiki
 import csv
 import datetime
 import calendar
-import logging
-import os
+import logger
 
-# Set up logger.  Check file first
-log_file = os.path.join(os.path.dirname(__file__), './logs/scraping.log')
-if not os.path.exists(os.path.dirname(log_file)):
-  os.makedirs(os.path.dirname(log_file))
-logger = logging.getLogger('scraper_meta')
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler(log_file)
-fh.setLevel(logging.DEBUG)
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
-fh.setFormatter(formatter)
-ch.setFormatter(formatter)
-logger.addHandler(fh)
-logger.addHandler(ch)
-logger.info('[scraper] Scraping Meta data tables.')
+# Set up logger
+log = logger.ScraperLogger('scraper_meta').logger
+log.info('[scraper] Scraping Meta data tables.')
 
 urls = {
   'meta_questions': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaSupportResult/1?mediafileid=11',
@@ -87,4 +73,4 @@ for u in urls:
     count = count + 1
 
   # Output total for each category
-  logger.info('[%s] Total rows: %s' % (u, count))
+  log.info('[%s] Total rows: %s' % (u, count))
