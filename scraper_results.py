@@ -48,27 +48,29 @@ for u in urls:
   timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
 
   for row in candidates:
-    # Make name ID
-    name_id = re.sub(r'\W+', '', row[7])
-    office_name_id = re.sub(r'\W+', '', row[4])
-
     # To better match up with other data, we set a no county_id to 88 as
     # that is what MN SoS uses
     if not row[1]:
       row[1] = '88'
       
-    # Create id
-    identifier = 'id-' + row[1] + '-' + row[3] + '-' + row[6] + '-' + office_name_id + '-' + name_id
+    # Create ids
+    cand_name_id = re.sub(r'\W+', '', row[7])
+    office_name_id = re.sub(r'\W+', '', row[4])
+    base_id = 'id-' + row[1] + '-' + row[2] + '-' + row[3] + '-' + row[5]
+    row_id = base_id + '-' + row[6]
+    id_name = base_id + '-' + row[6] + '-' + office_name_id + '-' + cand_name_id
+    race_id = base_id
+    race_id_name = base_id + '-' + office_name_id
 
     data = {
-      'id': identifier,
+      'id': row_id,
       'office_type': u,
       'state': row[0],
       'county_id': row[1],
       'precinct_id': row[2],
       'office_id': row[3],
       'office_name': row[4],
-      'fips_code': row[5],
+      'district_code': row[5], # District, mcd, or fips code
       'candidate_id': row[6],
       'candidate': row[7],
       'suffix': row[8],
@@ -79,7 +81,11 @@ for u in urls:
       'votes_candidate': int(row[13]),
       'percentage': float(row[14]),
       'total_votes_for_office': int(row[15]),
-      'name_id': name_id,
+      'id_name': id_name,
+      'race_id': race_id,
+      'race_id_name': race_id_name,
+      'cand_name_id': cand_name_id,
+      'office_name_id': office_name_id,
       'updated': int(timestamp)
     }
     
