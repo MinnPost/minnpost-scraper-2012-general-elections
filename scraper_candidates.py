@@ -132,8 +132,12 @@ for u in urls:
         'updated': int(timestamp)
       }
     
-    scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'candidates')
-    count = count + 1
+    try:
+      scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = u)
+      count = count + 1
+    except Exception, err:
+      log.exception('[%s] Error thrown while saving to database: %s' % (u, data))
+      raise
 
   # Output total for each category
   log.info('[%s] Total rows: %s' % (u, count))
