@@ -47,7 +47,8 @@ for u in urls:
       # Question Title
       # Question Body
       data = {
-        'id': row[0] + '-' + row[1],
+        'id': 'id-' + row[0] + '-' + row[1] + '-' + row[2] + '-' + row[3],
+        'results_id': 'id-' + row[0] + '--' + row[2] + '-' + row[1],
         'county_id': row[0],
         'office_code': row[1],
         'mcd_fips_code': row[2],
@@ -62,7 +63,7 @@ for u in urls:
       # Party Name 
       # Party ID 
       data = {
-        'id': row[2],
+        'id': 'id-' + row[2],
         'party_code': row[0],
         'party_name': row[1],
         'party_id': row[2],

@@ -46,7 +46,7 @@ for u in urls:
       # County Name
       # Number of precincts
       data = {
-        'id': row[0],
+        'id': 'id-' + row[0],
         'county_id': row[0],
         'county_name': row[1],
         'precincts': int(row[2]),
@@ -64,7 +64,7 @@ for u in urls:
       # MCD code (uses FIPS statewide unique codes, not county MCDs)
       # (IS NOT THERE) School District Number (school district reporting precincts only)
       data = {
-        'id': row[1],
+        'id': 'id-' + row[1],
         'county_id': row[0],
         'precinct_id': row[1],
         'precinct_name': row[2],
@@ -83,7 +83,7 @@ for u in urls:
       # MCD code (using FIPS statewide unique codes, not county MCDs)
       # Municipality Name
       data = {
-        'id': row[2],
+        'id': 'id-' + row[2],
         'county_id': row[0],
         'county_name': row[1],
         'mcd_fips_code': row[2],
@@ -96,7 +96,7 @@ for u in urls:
       # County ID (Home county for school district)
       # County Name (Home county for school district)
       data = {
-        'id': row[0] + '-' + row[2],
+        'id': 'id-' + row[0] + '-' + row[2],
         'district_number': row[0],
         'district_name': row[1],
         'county_id': row[2],

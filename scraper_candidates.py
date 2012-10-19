@@ -63,7 +63,7 @@ for u in urls:
       # Running mate email
       # Running mate phone
       data = {
-        'id': u + '-' + row[0],
+        'id': 'id-' + row[0],
         'type': u,
         'cand_id': row[0],
         'cand_name': row[1],
@@ -108,7 +108,7 @@ for u in urls:
       #	Campaign Website
       #	Campaign Email
       data = {
-        'id': u + '-' + row[0],
+        'id': 'id-' + row[0],
         'type': u,
         'cand_id': row[0],
         'cand_name': row[1],

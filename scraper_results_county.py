@@ -37,15 +37,10 @@ for u in urls:
   timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
 
   for row in candidates:
-    # To better match up with other data, we set a no county_id to 88 as
-    # that is what MN SoS uses
-    if not row[1]:
-      row[1] = '88'
-      
     # Create ids
     cand_name_id = re.sub(r'\W+', '', row[7])
     office_name_id = re.sub(r'\W+', '', row[4])
-    base_id = 'id-' + row[1] + '-' + row[2] + '-' + row[3] + '-' + row[5]
+    base_id = 'id-' + row[1] + '-' + row[2] + '-' + row[5] + '-' + row[3]
     row_id = base_id + '-' + row[6]
     id_name = base_id + '-' + row[6] + '-' + office_name_id + '-' + cand_name_id
     race_id = base_id
