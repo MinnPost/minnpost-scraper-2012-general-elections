@@ -24,3 +24,16 @@ libraries.
 For election night, the scraper needs to run every 10 minutes or less,
 and with ScraperWiki, it is not fast enough and there were some issues
 with SQLite performance.
+
+### Libraries and prerequisites
+
+    sudo apt-get install git-core git python-pip python-dev build-essential python-xml
+    sudo pip install --upgrade pip 
+    sudo pip install --upgrade virtualenv 
+
+### Install
+
+We are assuming this is the only thing running on server so not using Virtualenv, but
+feel free to use it.  Assuming all relative paths are form home directory.
+
+    git clone git://github.com/MinnPost/minnpost-scraper-2012-general-elections.git
