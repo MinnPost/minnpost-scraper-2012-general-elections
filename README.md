@@ -37,9 +37,10 @@ Ubuntu 12 install.
 ### Install codebase
 
 We are assuming this is the only thing running on server so not using Virtualenv, but
-feel free to use it.  Assuming all relative paths are form home directory.
+feel free to use it.  Assuming all relative paths are from repo directory.
 
     git clone git://github.com/MinnPost/minnpost-scraper-2012-general-elections.git
+    cd minnpost-scraper-2012-general-elections
     sudo pip install -r requirements_local.txt
     
 ### Setup webserver/API
@@ -67,10 +68,10 @@ Restart services.
 API Setup.  If for some reason, you need a publish token, then update scraperwiki.json
 as needed.
 
-    echo "{ \"database\": \"scraperwiki.sqlite\" }" > minnpost-scraper-2012-general-elections/scraperwiki.json
+    echo "{ \"database\": \"scraperwiki.sqlite\" }" > scraperwiki.json
     ln -s /home/ubuntu/minnpost-scraper-2012-general-elections/scraperwiki.json scraperwiki.json
     ln -s /home/ubuntu/minnpost-scraper-2012-general-elections/scraperwiki.sqlite scraperwiki.sqlite
     
 ### Cron
 
-    crontab minnpost-scraper-2012-general-elections/deploy/crontab
+    crontab deploy/crontab
