@@ -20,3 +20,4 @@ MAILTO=scraper@zzolo.org
     10    3      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_candidates.py
     20    3      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_districts.py
     40    3      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_meta.py
+
