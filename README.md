@@ -25,6 +25,9 @@ For election night, the scraper needs to run every 10 minutes or less,
 and with ScraperWiki, it is not fast enough and there were some issues
 with SQLite performance.
 
+These instructions were performed on EC2's quick-launch 
+Ubuntu 12 install.
+
 ### Libraries and prerequisites
 
     sudo apt-get install git-core git python-pip python-dev build-essential python-xml sqlite3 nginx fcgiwrap 
@@ -72,3 +75,6 @@ as needed.
 
     sqlite3 minnpost-scraper-2012-general-elections/scraperwiki.sqlite < minnpost-scraper-2012-general-elections/deploy/setup_local.sql
     
+### Cron
+
+    crontab minnpost-scraper-2012-general-elections/deploy/crontab
