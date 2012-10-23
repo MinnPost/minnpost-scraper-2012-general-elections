@@ -70,10 +70,6 @@ as needed.
     echo "{ \"database\": \"scraperwiki.sqlite\" }" > minnpost-scraper-2012-general-elections/scraperwiki.json
     ln -s /home/ubuntu/minnpost-scraper-2012-general-elections/scraperwiki.json scraperwiki.json
     ln -s /home/ubuntu/minnpost-scraper-2012-general-elections/scraperwiki.sqlite scraperwiki.sqlite
-
-### Setup database
-
-    sqlite3 minnpost-scraper-2012-general-elections/scraperwiki.sqlite < minnpost-scraper-2012-general-elections/deploy/setup_local.sql
     
 ### Cron
 
