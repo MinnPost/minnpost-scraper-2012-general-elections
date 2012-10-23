@@ -18,3 +18,9 @@ Make a virtualenv.
   
 This is used locally to get around some bugs in the scraperwiki 
 libraries.
+
+## Independent Deployment
+
+For election night, the scraper needs to run every 10 minutes or less,
+and with ScraperWiki, it is not fast enough and there were some issues
+with SQLite performance.
