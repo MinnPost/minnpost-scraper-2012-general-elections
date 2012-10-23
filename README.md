@@ -41,15 +41,34 @@ feel free to use it.  Assuming all relative paths are form home directory.
     
 ### Setup webserver/API
 
-    sudo git clone https://github.com/scraperwiki/dumptruck-web.git /var/www/dumbtruck-web
-    sudo chown -R www-data:www-data /var/www/dumbtruck-web
+    sudo git clone https://github.com/scraperwiki/dumptruck-web.git /var/www/dumptruck-web
+    sudo chown -R www-data:www-data /var/www/dumptruck-web
     
 Configure fcgiwrap to use more children, check if this file exists, if so
 just copy it.
 
     ls /etc/default/fcgiwrap
     sudo cp deploy/fcgiwrap /etc/default/fcgiwrap
+    
+Configure nginx.
+
+    sudo cp deploy/nginx-scraper-api /etc/nginx/sites-available/nginx-scraper-api
+    sudo ln -s /etc/nginx/sites-available/nginx-scraper-api /etc/nginx/sites-enabled/nginx-scraper-api
+    sudo rm /etc/nginx/sites-enabled/default
+
+Restart services.
+
+    sudo service fcgiwrap restart
+    sudo service nginx restart
+    
+API Setup.  If for some reason, you need a publish token, then update scraperwiki.json
+as needed.
+
+    echo "{ \"database\": \"scraperwiki.sqlite\" }" > minnpost-scraper-2012-general-elections/scraperwiki.json
+    ln -s /home/ubuntu/minnpost-scraper-2012-general-elections/scraperwiki.json scraperwiki.json
+    ln -s /home/ubuntu/minnpost-scraper-2012-general-elections/scraperwiki.sqlite scraperwiki.sqlite
 
 ### Setup database
 
-    sqlite3 scraperwiki.sqlite < deploy/setup_local.sql
+    sqlite3 minnpost-scraper-2012-general-elections/scraperwiki.sqlite < minnpost-scraper-2012-general-elections/deploy/setup_local.sql
+    
