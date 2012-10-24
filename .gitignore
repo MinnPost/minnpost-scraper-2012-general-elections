@@ -5,6 +5,8 @@
 .sqlite_history
 .lesshst
 scraperwiki.sqlite
+scraperwiki.sqlite-shm
+scraperwiki.sqlite-wal
 libraries
 logs
 
