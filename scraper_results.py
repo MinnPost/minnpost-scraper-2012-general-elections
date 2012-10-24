@@ -40,6 +40,14 @@ urls = {
   'hospital': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=90'
 }
 
+# Check for questions.  Only need check once
+questionable = False
+questions_found = 0
+table = scraperwiki.sqlite.select("name FROM sqlite_master WHERE type='table' AND name='meta_questions'")
+if table != []:
+  questionable = True
+
+# Start scraping
 for u in urls:
   data = scraperwiki.scrape(urls[u])
   candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
@@ -61,6 +69,14 @@ for u in urls:
     id_name = base_id + '-' + row[6] + '-' + office_name_id + '-' + cand_name_id
     race_id = base_id
     race_id_name = base_id + '-' + office_name_id
+    
+    # Attempt to get questions
+    question_body = ''
+    if questionable:
+      question = scraperwiki.sqlite.select("question_body FROM meta_questions WHERE results_id='%s'" % race_id)
+      if question != []:
+        question_body = question[0]['question_body']
+        questions_found = questions_found + 1
 
     data = {
       'id': row_id,
@@ -86,6 +102,7 @@ for u in urls:
       'race_id_name': race_id_name,
       'cand_name_id': cand_name_id,
       'office_name_id': office_name_id,
+      'question_body': question_body,
       'updated': int(timestamp)
     }
     
@@ -98,3 +115,23 @@ for u in urls:
 
   # Output total for each category
   log.info('[%s] Total rows: %s' % (u, count))
+
+
+# Note questions found
+log.info('[scraper] Questions found: %s' % (questions_found))
+
+# Update some vars for easy retrieval
+scraperwiki.sqlite.save_var('updated', int(calendar.timegm(datetime.datetime.utcnow().utctimetuple())))
+# Get number of races
+races = scraperwiki.sqlite.select("COUNT(DISTINCT race_id) AS race_count FROM results_general")
+if races != []:
+  scraperwiki.sqlite.save_var('races', races[0]['race_count'])
+# Use the presidential race to get a precincts reporting number
+p_race = scraperwiki.sqlite.select("* FROM results_general WHERE race_id = 'id----0101'")
+if p_race != []:
+  scraperwiki.sqlite.save_var('precincts_reporting', p_race[0]['precincts_reporting'])
+  scraperwiki.sqlite.save_var('total_effected_precincts', p_race[0]['total_effected_precincts'])
+
+
+# Let the logger know we are done.
+log.info('[scraper] Done scraping general Results data tables.')

@@ -46,9 +46,22 @@ for u in urls:
       # Ballot Question Number
       # Question Title
       # Question Body
+      
+      # SCHOOL DISTRICT QUESTION 1 (ISD #100)
+      
+      # Sweet identifiable, linked data, Batman.  Matching up
+      # questions with results is just annoying
+      results_id = 'id-' + row[0] + '--' + row[2] + '-' + row[1]
+      if row[4].lower().find('school') != -1:
+        results_id = 'id---' + row[3] + '-' + row[1]
+      elif row[4].lower().find('amendment') != -1:
+        results_id = 'id-' + row[0] + '--' + row[2] + '-' + row[1]
+      elif row[4].lower().find('county') == -1:
+        results_id = 'id---' + row[2].zfill(5) + '-' + row[1]
+      
       data = {
         'id': 'id-' + row[0] + '-' + row[1] + '-' + row[2] + '-' + row[3],
-        'results_id': 'id-' + row[0] + '--' + row[2] + '-' + row[1],
+        'results_id': results_id,
         'county_id': row[0],
         'office_code': row[1],
         'mcd_fips_code': row[2],
