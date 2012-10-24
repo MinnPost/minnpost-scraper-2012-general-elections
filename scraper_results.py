@@ -49,8 +49,14 @@ if table != []:
 
 # Start scraping
 for u in urls:
-  data = scraperwiki.scrape(urls[u])
-  candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
+  
+  try:
+    data = scraperwiki.scrape(urls[u])
+    candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
+  except Exception, err:
+    log.exception('[%s] Error when trying to read URL and parse CSV: %s' % (u, urls[u]))
+    raise
+      
   count = 0
   # Make a UTC timestamp
   timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
