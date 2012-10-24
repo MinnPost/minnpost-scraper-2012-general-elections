@@ -45,7 +45,7 @@ feel free to use it.  Assuming all relative paths are from repo directory.
     
 ### Setup webserver/API
 
-    sudo git clone https://github.com/scraperwiki/dumptruck-web.git /var/www/dumptruck-web
+    sudo git clone https://github.com/zzolo/dumptruck-web.git /var/www/dumptruck-web
     sudo chown -R www-data:www-data /var/www/dumptruck-web
     
 Configure fcgiwrap to use more children, check if this file exists, if so
