@@ -40,6 +40,9 @@ urls = {
   'hospital': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=90'
 }
 
+# Mark for creating indexes
+created_index = False
+
 # Check for questions.  Only need check once
 questionable = False
 questions_found = 0
@@ -115,6 +118,15 @@ for u in urls:
     try:
       scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_general')
       count = count + 1
+      
+      # Create index first time around, as the table will be created above
+      if not created_index:
+        index_query = "CREATE INDEX IF NOT EXISTS %s ON results_general (%s)"
+        scraperwiki.sqlite.dt.execute(index_query % ('office_name', 'office_name'))
+        scraperwiki.sqlite.dt.execute(index_query % ('candidate', 'candidate'))
+        scraperwiki.sqlite.dt.execute(index_query % ('race_id', 'race_id'))
+        log.info('[%s] Creating indices' % (u))
+        created_index = True
     except Exception, err:
       log.exception('[%s] Error thrown while saving to database: %s' % (u, data))
       raise

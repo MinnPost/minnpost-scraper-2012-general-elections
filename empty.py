@@ -10,5 +10,6 @@ dt = dumptruck.DumpTruck(dbname='scraperwiki.sqlite')
 print 'Dropping all tables ...'
 tables = dt.tables()
 for t in tables:
-  print 'Dropping %s ...' % t
-  dt.drop(t)
+  if not t.startswith('sqlite_stat'):
+    print 'Dropping %s ...' % t
+    dt.drop(t)
