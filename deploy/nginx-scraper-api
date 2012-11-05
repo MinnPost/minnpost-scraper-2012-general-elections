@@ -19,7 +19,10 @@
 fastcgi_cache_path /var/cache/nginx levels=1:2
   keys_zone=scraper_ncache:20m
   inactive=1m max_size=512M;
-fastcgi_cache_key "$scheme$request_method$host$request_uri";
+
+#fastcgi_cache_key "$scheme$request_method$host$request_uri";
+fastcgi_cache_key "$scheme$request_method$host$uri$arg_box$arg_callback$arg_q";
+
 fastcgi_cache_valid any 1m;
 fastcgi_ignore_headers Expires Cache-Control;
 fastcgi_cache scraper_ncache;
