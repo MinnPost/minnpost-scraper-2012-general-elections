@@ -81,15 +81,15 @@ for u in urls:
     
     # Update titles for better sorting
     if u == 'state_senate':
-      match = re.match(r'State Senator District ([0-9]{1})', row[4], re.IGNORECASE)
+      match = re.match(r'State Senator District ([0-9]{1})$', row[4], re.IGNORECASE)
       if match is not None:
         row[4] = 'State Senator District 0%s' % match.group(1)
     if u == 'state_house':
-      match = re.match(r'State Representative District ([0-9]{1}[a-zA-Z]+)', row[4], re.IGNORECASE)
+      match = re.match(r'State Representative District ([0-9]{1}[a-zA-Z]+)$', row[4], re.IGNORECASE)
       if match is not None:
         row[4] = 'State Representative District 0%s' % match.group(1)
     if u == 'district_courts':
-      match = re.match(r'Judge - ([0-9]+[a-zA-Z]{2}) District Court ([0-9]+)', row[4], re.IGNORECASE)
+      match = re.match(r'Judge - ([0-9]+[a-zA-Z]{2}) District Court ([0-9]+)$', row[4], re.IGNORECASE)
       if match is not None:
         dist = '0' + match.group(1) if len(match.group(1)) == 3 else match.group(1)
         seat = '0' + match.group(2) if len(match.group(2)) == 1 else match.group(2)
