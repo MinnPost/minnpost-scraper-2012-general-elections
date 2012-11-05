@@ -94,7 +94,6 @@ for u in urls:
         dist = '0' + match.group(1) if len(match.group(1)) == 3 else match.group(1)
         seat = '0' + match.group(2) if len(match.group(2)) == 1 else match.group(2)
         row[4] = 'Judge - %s District Court %s' % (dist, seat)
-        print row[4]
     
     # Attempt to get questions
     question_body = ''
