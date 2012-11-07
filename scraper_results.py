@@ -30,7 +30,7 @@ urls = {
   'us_senate': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/ussenate.txt',
   'us_house': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/ushouse.txt',
   'state_senate': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/stsenate.txt',
-  'state_house': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=20',
+  'state_house': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/LegislativeByDistrict.txt',
   'amendments': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/ConstAmend.txt',
   'supreme_appeal_courts': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/judicial.txt',
   'district_courts': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/judicialdst.txt',
