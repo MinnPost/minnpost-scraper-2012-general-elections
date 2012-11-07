@@ -26,18 +26,18 @@ log = logger.ScraperLogger('scraper_results').logger
 log.info('[scraper] Scraping general Results data tables.')
 
 urls = {
-  'presidential': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=22',
-  'us_senate': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=23',
-  'us_house': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=24',
-  'state_senate': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=30',
+  'presidential': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/USPres.txt',
+  'us_senate': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/ussenate.txt',
+  'us_house': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/ushouse.txt',
+  'state_senate': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/stsenate.txt',
   'state_house': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=20',
-  'amendments': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=66',
-  'supreme_appeal_courts': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=37',
-  'district_courts': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=44',
-  'county': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=88',
-  'municipal': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=1',
-  'school_board': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=7',
-  'hospital': 'http://electionresults.sos.state.mn.us/ENR/Results/MediaResult/1?mediafileid=90'
+  'amendments': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/ConstAmend.txt',
+  'supreme_appeal_courts': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/judicial.txt',
+  'district_courts': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/judicialdst.txt',
+  'county': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/cntyRaceQuestios.txt',
+  'municipal': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/local.txt',
+  'school_board': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/School.txt',
+  'hospital': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/hospital.txt'
 }
 
 # Mark for creating indexes
