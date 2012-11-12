@@ -14,11 +14,15 @@ MAILTO=scraper@zzolo.org
 # meta scripts.  Offset hours for server time
 # and MN time (-5): 3AM = 8AM
 
-0,5,10,15,20,25,30,35,40,45,50,55 0-7,9-23 * * *   python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_results.py
+# Results
 
-    0,30  8      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_results.py
+  0,25 0-7,10-23 *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_results.py
+  43   0-7,10-23 *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_results_county.py
+  0       8      *     *     0     cd /home/ubuntu/minnpost-scraper-2012-general-elections/data && wget ftp://media:results@ftp.sos.state.mn.us/20121106_SG/allracesbyprecinct.txt -N
+  0       9      *     *     0     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_results_precincts.py
 
-# Other scripts daily
+# Meta
+
     10    8      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_candidates.py
     20    8      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_districts.py
     40    8      *     *     *     python /home/ubuntu/minnpost-scraper-2012-general-elections/scraper_meta.py

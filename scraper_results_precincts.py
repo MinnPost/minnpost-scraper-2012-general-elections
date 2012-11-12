@@ -10,9 +10,7 @@ Describing file columns:
 
 http://electionresults.sos.state.mn.us/ENR/Select/DownloadFileFormats/1
 
-
-
-This file gets the results for all elections by county.
+This file gets the results for all elections by precincts.
 """
 import re
 import scraperwiki
@@ -22,16 +20,19 @@ import calendar
 import logger
 
 # Set up logger
-log = logger.ScraperLogger('scraper_results_county').logger
-log.info('[scraper] Scraping general Results by County data tables.')
+log = logger.ScraperLogger('scraper_results_precinct').logger
+log.info('[scraper_results_precinct] Scraping general Results by Precints data tables.')
 
 urls = {
-  'results_county': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/allracesbycounty.txt'
+  'results_precinct': 'ftp://media:results@ftp.sos.state.mn.us/20121106_SG/allracesbyprecinct.txt'
 }
 
 for u in urls:
-  data = scraperwiki.scrape(urls[u])
-  candidates = csv.reader(data.splitlines(), delimiter=';', quotechar='|')
+  log.info('[scraper_results_precinct] Starting downloading and reading.')
+  text_file = open('data/allracesbyprecinct.txt', 'rb')
+  candidates = csv.reader(text_file, delimiter=';', quotechar='|')
+  log.info('[scraper_results_precinct] Finished downloading and reading.')
+  
   count = 0
   # Make a UTC timestamp
   timestamp = calendar.timegm(datetime.datetime.utcnow().utctimetuple())
@@ -74,8 +75,9 @@ for u in urls:
     }
     
     try:
-      scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_county')
+      scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_precinct')
       count = count + 1
+      log.info('[%s] Row: %s' % (u, count))
     except Exception, err:
       log.exception('[%s] Error thrown while saving to database: %s' % (u, data))
       raise

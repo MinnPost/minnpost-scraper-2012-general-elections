@@ -9,6 +9,7 @@ scraperwiki.sqlite-shm
 scraperwiki.sqlite-wal
 libraries
 logs
+data
 
 ## EDITORS
 .viminfo
