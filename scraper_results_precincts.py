@@ -77,7 +77,8 @@ for u in urls:
     try:
       scraperwiki.sqlite.save(unique_keys = ['id'], data = data, table_name = 'results_precinct')
       count = count + 1
-      log.info('[%s] Row: %s' % (u, count))
+      if count % 1000 == 0:
+        log.info('[%s] Row: %s' % (u, count))
     except Exception, err:
       log.exception('[%s] Error thrown while saving to database: %s' % (u, data))
       raise
